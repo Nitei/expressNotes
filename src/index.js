@@ -36,7 +36,10 @@ app.use( session( {
 app.use( require( './routes/index' ) );
 app.use( require( './routes/notes' ) );
 app.use( require( './routes/users' ) );
+
 // Static Files
+// Defino la ruta de la carpeta public
+app.use( express.static( path.join( __dirname, 'public' ) ) );
 
 // Server is listening
 
