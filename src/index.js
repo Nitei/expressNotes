@@ -31,7 +31,9 @@ app.use( session( {
 // Global variables
 
 // Routes
-
+app.use( require( './routes/index' ) );
+app.use( require( './routes/notes' ) );
+app.use( require( './routes/users' ) );
 // Static Files
 
 // Server is listening
