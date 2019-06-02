@@ -3,11 +3,13 @@ const express = require( 'express' );
 const app = express();
 const expHbs = require( 'express-handlebars' );
 const methodOverride = require( 'method-override' );
+const path = require( 'path' );
+const session = require( 'express-session' );
 
 // Settings
 app.set( 'port', process.env.PORT || 3000 );
 app.set( 'views', path.join( __dirname, 'views' ) );
-app.engine( '.hbs', expressHandlebars( {
+app.engine( '.hbs', expHbs( {
   defaultLayout: 'main',
   layoutsDir: path.join( app.get( 'views' ), 'layouts' ),
   partialsDir: path.join( app.get( 'views' ), 'partials' ),
