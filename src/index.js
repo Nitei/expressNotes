@@ -1,24 +1,26 @@
 
-const express = require( 'express' );
-const expHbs = require( 'express-handlebars' );
-const methodOverride = require( 'method-override' );
-const path = require( 'path' );
-const session = require( 'express-session' );
+const
+  express = require( 'express' ),
+  app = express(),
+  expHbs = require( 'express-handlebars' ),
+  methodOverride = require( 'method-override' ),
+  path = require( 'path' ),
+  session = require( 'express-session' )
+  ;
 
 // Inicializaciones
-const app = express();
 require( './database' );
 
 // Settings
 app.set( 'port', process.env.PORT || 3000 );
 app.set( 'views', path.join( __dirname, 'views' ) );
+app.set( 'view engine', '.hbs' );
 app.engine( '.hbs', expHbs( {
   defaultLayout: 'main',
   layoutsDir: path.join( app.get( 'views' ), 'layouts' ),
   partialsDir: path.join( app.get( 'views' ), 'partials' ),
   extname: '.hbs',
 } ) );
-app.set( 'view engine', '.hbs' );
 
 // Middlewares Se ejecutan antes de las rutas
 
