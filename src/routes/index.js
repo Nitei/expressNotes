@@ -6,10 +6,12 @@ const
 
 router.get( '/', ( req, res ) => {
   // res.send( 'Index' );
+  // Para la ruta raiz usa ./index.js
   res.render( 'index' );
 } );
 
 router.get( '/about', ( req, res ) => {
+  // Para la ruta raiz usa ./about.js
   res.render( 'about' );
 } );
 
