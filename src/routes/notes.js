@@ -1,17 +1,26 @@
 // Para crear nuevas notas, actualizarlas, eliminarlas// Irán aquí las urls principales de la aplicación
 const
   express = require( 'express' ),
-  router = express.Router()
+  router = express.Router(),
+  // importamos el modelo de notas para usar los metodos get put post y delete
+  Note = require( '../models/Note' )
   ;
 
 router
+  .get( '/notes', async ( req, res ) => {
+    // Esperamos a todas las notas de la DB
+    const notes = await Note.find().sort( { date: 'desc' } );
+    res.render( 'notes/all-notes', { notes } );
+  } )
+
   .get( '/notes/add', ( req, res ) => {
     res.render( 'notes/new-note' );
   } )
-  .post( '/notes/new-note', ( req, res ) => {
+  .post( '/notes/new-note', async ( req, res ) => {
     console.log( req.body );
-    const { title, descripcion } = req.body;
-    const errors = [];
+    const
+      { title, descripcion } = req.body,
+      errors = [];
     if ( !title ) {
       errors.push( { text: 'Por favor escriba un título' } );
     }
@@ -25,14 +34,11 @@ router
         descripcion
       } );
     } else {
-      res.send( 'ok' );
+      const newNote = new Note( { title, descripcion } );
+      await newNote.save();
+      res.redirect( '/notes' );
     }
-  } );
 
-
-router
-  .get( '/notes', ( req, res ) => {
-    res.send( 'Notes from database' );
   } );
 
 module.exports = router;

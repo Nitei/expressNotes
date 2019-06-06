@@ -23,31 +23,31 @@ app.engine( '.hbs', expHbs( {
 } ) );
 
 // Middlewares Se ejecutan antes de las rutas
-
 // Se usa para cuando te envian un formulario
-app.use( express.urlencoded( { extended: false } ) );
-// Para que los formularios puedan enviar otros datos como put y delete
-app.use( methodOverride( '_method' ) );
-// Express usará esto para guardar datos en una sesión
-app.use( session( {
-  secret: 'mysecretapp',
-  resave: true,
-  saveUninitialized: true
-} ) );
+app.use(
+  express.urlencoded( { extended: false } ),
+  // Para que los formularios puedan enviar otros datos como put y delete
+  methodOverride( '_method' ),
+  // Express usará esto para guardar datos en una sesión
+  session( {
+    secret: 'mysecretapp',
+    resave: true,
+    saveUninitialized: true
+  } ),
+);
 
 // Global variables
-
 // Routes
-app.use( require( './routes/index' ) );
-app.use( require( './routes/notes' ) );
-app.use( require( './routes/users' ) );
+app.use(
+  require( './routes/index' ),
+  require( './routes/notes' ),
+  require( './routes/users' ),
+);
 
-// Static Files
-// Defino la ruta de la carpeta public
+// Static Files define la ruta de la carpeta public
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 
 // Server is listening
-
 app.listen( app.get( 'port' ), () => {
   console.log( 'Server on port', app.get( 'port' ) );
 } );
