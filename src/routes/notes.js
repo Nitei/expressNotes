@@ -41,6 +41,20 @@ router
 
   } );
 
+router
+  .get( '/notes/edit/:id', async ( req, res ) => {
+    const note = await Note.findById( req.params.id );
+    res.render( 'notes/edit-note', { note } );
+  } )
+  .put( '/notes/edit-note/:id', async ( req, res ) => {
+    const { title, descripcion } = req.body;
+    await Note.findByIdAndUpdate( req.params.id, { title, descripcion } );
+    res.redirect( '/notes' );
+  } )
+  .delete( '/notes/delete/:id', ( req, res ) => {
+
+  } );
+
 module.exports = router;
 
 // Para eliminar toda la base de datos en la mongo shell:
