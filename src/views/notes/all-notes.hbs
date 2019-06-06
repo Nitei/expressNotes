@@ -9,7 +9,15 @@
           </a>
         </h4>
         <p>{{descripcion}}</p>
-        <button class="btn btn-danger btn-block btn-sm">Delete</button>
+        {{!-- Para usar el _method-override se añade el input de abajo y ?_method=yElMetodo --}}
+        <form action="/notes/delete/{{_id}}?_method=DELETE"
+          method="POST">
+          {{!-- Este input solo se usa para el _method-override --}}
+          <input type="hidden"
+            name="_method"
+            value="DELETE">
+          <button class="btn btn-danger btn-block btn-sm">Delete</button>
+        </form>
         <small>{{date}}</small>
       </div>
     </div>
