@@ -12,7 +12,6 @@ router
     const notes = await Note.find().sort( { date: 'desc' } );
     res.render( 'notes/all-notes', { notes } );
   } )
-
   .get( '/notes/add', ( req, res ) => {
     res.render( 'notes/new-note' );
   } )
@@ -20,7 +19,8 @@ router
     console.log( req.body );
     const
       { title, descripcion } = req.body,
-      errors = [];
+      errors = []
+      ;
     if ( !title ) {
       errors.push( { text: 'Por favor escriba un título' } );
     }
@@ -42,3 +42,8 @@ router
   } );
 
 module.exports = router;
+
+// Para eliminar toda la base de datos en la mongo shell:
+// show dbs  //  Mostrará todas las bases de datos de mongo
+// use randomNameDatabase
+// db.dropDatabase()
