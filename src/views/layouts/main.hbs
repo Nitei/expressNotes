@@ -30,6 +30,8 @@
 
   <p>Navegacion</p>
   <main class="container">
+    {{!-- Con esto se usan los partials --}}
+    {{> messages}}
     {{!-- Triple llave muestra el enrutamiento de handlebars, es como router-outlet --}}
     {{{ body }}}
   </main>

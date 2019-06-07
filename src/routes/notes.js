@@ -16,7 +16,6 @@ router
     res.render( 'notes/new-note' );
   } )
   .post( '/notes/new-note', async ( req, res ) => {
-    console.log( req.body );
     const
       { title, descripcion } = req.body,
       errors = []
@@ -27,7 +26,7 @@ router
     if ( !descripcion ) {
       errors.push( { text: 'Por favor escriba un descripcion' } );
     }
-    if ( errors.length ) {
+    if ( errors.length > 0 ) {
       res.render( 'notes/new-note', {
         errors,
         title,
@@ -36,6 +35,7 @@ router
     } else {
       const newNote = new Note( { title, descripcion } );
       await newNote.save();
+      req.flash( 'success_create_msg', 'Nota agregada satisfactoriamente' );
       res.redirect( '/notes' );
     }
 
@@ -49,10 +49,13 @@ router
   .put( '/notes/edit-note/:id', async ( req, res ) => {
     const { title, descripcion } = req.body;
     await Note.findByIdAndUpdate( req.params.id, { title, descripcion } );
+    // La variable global success_msg contendrá la nota actualizada satisfactoriamente
+    req.flash( 'success_edited_msg', 'Nota actualizada satisfactoriamente' );
     res.redirect( '/notes' );
   } )
   .delete( '/notes/delete/:id', async ( req, res ) => {
     await Note.findByIdAndDelete( req.params.id );
+    req.flash( 'success_deleted_msg', 'Nota eliminada satisfactoriamente' );
     res.redirect( '/notes' );
   } );
 
