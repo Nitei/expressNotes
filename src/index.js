@@ -6,11 +6,13 @@ const
   methodOverride = require( 'method-override' ),
   path = require( 'path' ),
   session = require( 'express-session' ),
-  flash = require( 'connect-flash' )
+  flash = require( 'connect-flash' ),
+  passport = require( 'passport' )
   ;
 
 // Inicializaciones
 require( './database' );
+require( './config/passport' );
 
 // Settings
 app.set( 'port', process.env.PORT || 3000 );
@@ -35,6 +37,8 @@ app.use(
     resave: true,
     saveUninitialized: true
   } ),
+  passport.initialize(),
+  passport.session(),
   flash(),
 );
 
@@ -45,6 +49,8 @@ app.use( ( req, res, next ) => {
   res.locals.success_created_msg = req.flash( 'success_created_msg' );
   res.locals.success_edited_msg = req.flash( 'success_edited_msg' );
   res.locals.success_deleted_msg = req.flash( 'success_deleted_msg' );
+  // Error de sign up / in
+  res.locals.error = req.flash( 'error' );
   next();
 } );
 // Routes

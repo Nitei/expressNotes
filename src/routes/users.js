@@ -1,13 +1,26 @@
 // Irán aquí las urls principales de la aplicación
-const express = require( 'express' );
-const router = express.Router();
-const User = require( '../models/User' );
+const
+  express = require( 'express' ),
+  router = express.Router(),
+  User = require( '../models/User' ),
+  passport = require( 'passport' )
+  ;
 
-router.get( '/users/signin', ( req, res ) => {
-  // res.send( 'Ingresando a la aplicación' );
-  res.render( 'users/signin.hbs' );
-} );
-
+// SIGN IN
+router
+  .get( '/users/signin', ( req, res ) => {
+    // res.send( 'Ingresando a la aplicación' );
+    res.render( 'users/signin' );
+  } )
+  .post( '/users/signin', passport.authenticate( 'local', {
+    // Si el usuario se autentica correctamente es redirigido a /notes
+    successRedirect: '/notes',
+    // Si el usuario se autentica incorrectamente es redirigido a /users/signin
+    failureRedirect: '/users/signin',
+    // Esto es para poder enviar mensajes flash
+    failureFlash: true
+  } ) )
+  ;
 
 // SIGN UP
 router
