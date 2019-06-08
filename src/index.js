@@ -45,7 +45,6 @@ app.use( ( req, res, next ) => {
   res.locals.success_created_msg = req.flash( 'success_created_msg' );
   res.locals.success_edited_msg = req.flash( 'success_edited_msg' );
   res.locals.success_deleted_msg = req.flash( 'success_deleted_msg' );
-  // Usuarios
   next();
 } );
 // Routes
