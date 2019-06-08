@@ -28,15 +28,14 @@
 
 <body>
 
-  <p>Navegacion</p>
-  <main class="container">
+  <main class="container mt-4">
     {{!-- Con esto se usan los partials --}}
+    {{> errors }}
     {{> messages}}
     {{!-- Triple llave muestra el enrutamiento de handlebars, es como router-outlet --}}
     {{{ body }}}
   </main>
 
-  <p>footer</p>
 
   {{!-- SCRIPTS --}}
   <script src="https://kit.fontawesome.com/9d0be8b7fb.js"></script>
