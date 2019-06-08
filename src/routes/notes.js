@@ -15,6 +15,10 @@ router
   .get( '/notes/add', ( req, res ) => {
     res.render( 'notes/new-note' );
   } )
+  .get( '/notes/edit/:id', async ( req, res ) => {
+    const note = await Note.findById( req.params.id );
+    res.render( 'notes/edit-note', { note } );
+  } )
   .post( '/notes/new-note', async ( req, res ) => {
     const
       { title, descripcion } = req.body,
@@ -35,16 +39,9 @@ router
     } else {
       const newNote = new Note( { title, descripcion } );
       await newNote.save();
-      req.flash( 'success_create_msg', 'Nota agregada satisfactoriamente' );
+      req.flash( 'success_created_msg', 'Nota agregada satisfactoriamente' );
       res.redirect( '/notes' );
     }
-
-  } );
-
-router
-  .get( '/notes/edit/:id', async ( req, res ) => {
-    const note = await Note.findById( req.params.id );
-    res.render( 'notes/edit-note', { note } );
   } )
   .put( '/notes/edit-note/:id', async ( req, res ) => {
     const { title, descripcion } = req.body;
