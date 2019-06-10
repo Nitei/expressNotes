@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand"
+    href="/">Express Notes</a>
+
+  <ul class="navbar-text mr-auto my-auto">
+    <li class="nav-item">
+      <a class="nav-link"
+        href="/about">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        href="/notes">Notes</a>
+    </li>
+    <li>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+        Notas
+      </button>
+        <div class="dropdown-menu"
+          aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item c-black"
+            href="/notes">Todas las notas</a>
+          <a class="dropdown-item c-black"
+            href="/notes/add">Agregar nota</a>
+          <a class="dropdown-item c-black"
+            href="/users/logout">Logout</a>
+        </div>
+    </li>
+    </div>
+  </ul>
+  <ul class="navbar-text ml-auto my-auto">
+    <li class="nav-item">
+      <a class="nav-link"
+        href="/users/signin">SignIn</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        href="/users/signup">SignUp</a>
+    </li>
+  </ul>
+</nav>

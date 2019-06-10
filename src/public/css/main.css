@@ -4,3 +4,10 @@ body {
 .imgAjuste{
   width: 100%;
 }
+nav, ul, li, a {
+  display: inline-block;
+}
+/* Selector más especifico para evitar usar !important */
+a.c-black.dropdown-item {
+  color: black;
+}
