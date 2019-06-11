@@ -3,23 +3,24 @@ const
   express = require( 'express' ),
   router = express.Router(),
   // importamos el modelo de notas para usar los metodos get put post y delete
-  Note = require( '../models/Note' )
+  Note = require( '../models/Note' ),
+  { isAuthenticated } = require( '../helpers/auth' )
   ;
 
 router
-  .get( '/notes', async ( req, res ) => {
+  .get( '/notes', isAuthenticated, async ( req, res ) => {
     // Esperamos a todas las notas de la DB
     const notes = await Note.find().sort( { date: 'desc' } );
     res.render( 'notes/all-notes', { notes } );
   } )
-  .get( '/notes/add', ( req, res ) => {
+  .get( '/notes/add', isAuthenticated, ( req, res ) => {
     res.render( 'notes/new-note' );
   } )
-  .get( '/notes/edit/:id', async ( req, res ) => {
+  .get( '/notes/edit/:id', isAuthenticated, async ( req, res ) => {
     const note = await Note.findById( req.params.id );
     res.render( 'notes/edit-note', { note } );
   } )
-  .post( '/notes/new-note', async ( req, res ) => {
+  .post( '/notes/new-note', isAuthenticated, async ( req, res ) => {
     const
       { title, descripcion } = req.body,
       errors = []
@@ -43,14 +44,14 @@ router
       res.redirect( '/notes' );
     }
   } )
-  .put( '/notes/edit-note/:id', async ( req, res ) => {
+  .put( '/notes/edit-note/:id', isAuthenticated, async ( req, res ) => {
     const { title, descripcion } = req.body;
     await Note.findByIdAndUpdate( req.params.id, { title, descripcion } );
     // La variable global success_msg contendrá la nota actualizada satisfactoriamente
     req.flash( 'success_edited_msg', 'Nota actualizada satisfactoriamente' );
     res.redirect( '/notes' );
   } )
-  .delete( '/notes/delete/:id', async ( req, res ) => {
+  .delete( '/notes/delete/:id', isAuthenticated, async ( req, res ) => {
     await Note.findByIdAndDelete( req.params.id );
     req.flash( 'success_deleted_msg', 'Nota eliminada satisfactoriamente' );
     res.redirect( '/notes' );
