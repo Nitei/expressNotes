@@ -10,7 +10,8 @@ const
 router
   .get( '/notes', isAuthenticated, async ( req, res ) => {
     // Esperamos a todas las notas de la DB
-    const notes = await Note.find().sort( { date: 'desc' } );
+    // Note.find( { user: req.user.id } ); // Busca en la DB las notas desean de éste usuario
+    const notes = await Note.find( { user: req.user.id } ).sort( { date: 'desc' } );
     res.render( 'notes/all-notes', { notes } );
   } )
   .get( '/notes/add', isAuthenticated, ( req, res ) => {
@@ -39,6 +40,7 @@ router
       } );
     } else {
       const newNote = new Note( { title, descripcion } );
+      newNote.user = req.user.id;
       await newNote.save();
       req.flash( 'success_created_msg', 'Nota agregada satisfactoriamente' );
       res.redirect( '/notes' );
