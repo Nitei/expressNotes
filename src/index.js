@@ -44,13 +44,17 @@ app.use(
 
 // Global variables
 // Para guardar datos de forma local
+
 app.use( ( req, res, next ) => {
   // Notas
-  res.locals.success_created_msg = req.flash( 'success_created_msg' );
+  res.locals
+    .success_created_msg = req.flash( 'success_created_msg' );
   res.locals.success_edited_msg = req.flash( 'success_edited_msg' );
   res.locals.success_deleted_msg = req.flash( 'success_deleted_msg' );
   // Error de sign up / in
   res.locals.error = req.flash( 'error' );
+  // Cuando el usuario se autentica passport guarda sus datos dentro de una variable local
+  res.locals.user = req.user || null;
   next();
 } );
 // Routes
